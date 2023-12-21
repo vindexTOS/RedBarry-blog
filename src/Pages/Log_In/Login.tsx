@@ -4,12 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleLogInOpen } from "../../Store/Features/UiSlice/Ui_slice";
 import useOutClick from "../../Hooks/useOutClick";
 import { LoginThunk } from "../../Store/Features/Login/Login_thunk";
+import { FaCheckCircle } from "react-icons/fa";
 
-import { setError } from "../../Store/Features/Login/Login_slice";
+import { setError, setToken } from "../../Store/Features/Login/Login_slice";
 import { HiMiniExclamationCircle } from "react-icons/hi2";
 export default function Login() {
+  const localToken = localStorage.getItem("user");
+
   const dispatch = useDispatch<any>();
-  const { error, token } = useSelector((state: any) => state.LoginReducer);
+  const { error, token, success } = useSelector(
+    (state: any) => state.LoginReducer
+  );
   const cancleRef = useRef(null);
   const handleClose = () => {
     dispatch(handleLogInOpen());
@@ -27,10 +32,12 @@ export default function Login() {
     } else {
       dispatch(LoginThunk(email));
     }
-    };
-    
+  };
 
-    
+  const handleSuccseLogIn = () => {
+    dispatch(setToken(localToken));
+    handleClose();
+  };
   const style = {
     mainDiv: `w-[100vw]  h-[91vh] absolute  overflow-hidden	 bg-gray-500/20 flex items-center justify-center`,
     loginDiv: `w-[480px] h-[272px] shrink-0 bg-[#FFF] rounded-[12px] flex flex-col items-center  justify-around relative`,
@@ -46,33 +53,47 @@ export default function Login() {
 
   return (
     <div className={style.mainDiv}>
-      <div ref={cancleRef} className={style.loginDiv}>
-        <MdOutlineCancel onClick={handleClose} className={style.cancel} />
+      {success ? (
+        <div ref={cancleRef} className={style.loginDiv}>
+          <MdOutlineCancel onClick={handleClose} className={style.cancel} />
 
-        <h1 className={style.h1}>შესვლა</h1>
-        <div className={style.inputWrapper}>
-          <label className={style.label} htmlFor="email">
-            ელ-ფოსტა
-          </label>
-          <input
-            onChange={(e) => setEmail(e.target.value)}
-            id="email"
-            type="email"
-            className={style.input}
-            placeholder="Example@redberry.ge"
-          />
-          {error && (
-            <div className="text-red-600 text-[15px] font-bold flex items-center justify-start gap-2 ">
-              <HiMiniExclamationCircle className="mt-1 text-[1.2rem]" />
-              {error}
-            </div>
-          )}
+          <div className="flex flex-col items-center justify-center gap-2 mt-5">
+            <FaCheckCircle className="text-green-400 text-[3rem]" />
+            <h1 className={style.h1}>{success}</h1>
+          </div>
+          <button onClick={handleSuccseLogIn} className={style.btn}>
+            კარგი
+          </button>
         </div>
+      ) : (
+        <div ref={cancleRef} className={style.loginDiv}>
+          <MdOutlineCancel onClick={handleClose} className={style.cancel} />
 
-        <button onClick={handleLogIn} className={style.btn}>
-          შესვლა
-        </button>
-      </div>
+          <h1 className={style.h1}>შესვლა</h1>
+          <div className={style.inputWrapper}>
+            <label className={style.label} htmlFor="email">
+              ელ-ფოსტა
+            </label>
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              id="email"
+              type="email"
+              className={style.input}
+              placeholder="Example@redberry.ge"
+            />
+            {error && (
+              <div className="text-red-600 text-[15px] font-bold flex items-center justify-start gap-2 ">
+                <HiMiniExclamationCircle className="mt-1 text-[1.2rem]" />
+                {error}
+              </div>
+            )}
+          </div>
+
+          <button onClick={handleLogIn} className={style.btn}>
+            შესვლა
+          </button>
+        </div>
+      )}
     </div>
   );
 }

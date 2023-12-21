@@ -7,16 +7,15 @@ export const LoginThunk = createAsyncThunk(
   async (email: string) => {
     try {
       const headers = {
-        Authorization: import.meta.env.VITE_AuthorizationToken,
-        withCredentials: true,
+        Authorization: `Bearer ${import.meta.env.VITE_AuthorizationToken}`,
       };
-      const response = await axios.post(
+      await axios.post(
         `${import.meta.env.VITE_BASE_API_URL}login`,
         { email },
         { headers }
       );
-      const cookiesFromResponse = response.headers;
-      return "log";
+
+      localStorage.setItem("user", "userLoggedIn");
     } catch (error) {
       const err: any = error;
       console.log(error);

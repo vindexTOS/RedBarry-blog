@@ -15,6 +15,9 @@ const LoginSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -24,8 +27,8 @@ const LoginSlice = createSlice({
       })
       .addCase(LoginThunk.fulfilled, (state, action) => {
         state.loading = false;
-        state.success = "logged in successfully";
-        state.token = "logged";
+        state.success = "წარმატებული ავტორიზაცია";
+        state.token = "userLoggedIn";
       })
       .addCase(LoginThunk.rejected, (state, action) => {
         state.loading = false;
@@ -34,6 +37,6 @@ const LoginSlice = createSlice({
   },
 });
 
-export const { setError } = LoginSlice.actions;
+export const { setError, setToken } = LoginSlice.actions;
 
 export default LoginSlice.reducer;

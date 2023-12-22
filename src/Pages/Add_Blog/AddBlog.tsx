@@ -62,7 +62,14 @@ export default function AddBlog() {
         author: "",
       };
   const [Form, setForm] = useState<BlogType>(savedForm);
-
+  const checkValues = () => {
+    for (const key in Form) {
+      if (Form.hasOwnProperty(key) && Form[key as keyof BlogType] === "") {
+        return false;
+      }
+    }
+    return true;
+  };
   useEffect(() => {
     localStorage.setItem("blogForm", JSON.stringify(Form));
   }, [Form]);
@@ -136,7 +143,7 @@ export default function AddBlog() {
         <MdOutlineArrowBackIos className="text-[1.2rem]" />
       </div>
       <section className={style.blogSection}>
-        <div className={style.blogContainer}>
+        <form className={style.blogContainer}>
           <h1 className={style.h1}>ბლოგის დამატება</h1>
           <div className={style.DropZoneWrapper}>
             <p className={style.p}>ატვირთე ფოტო</p>
@@ -160,6 +167,7 @@ export default function AddBlog() {
           </div>
           <div className={style.topinputWrapper}>
             <Input
+              require={true}
               handleChange={handleChange}
               title="ავტორი *"
               placeholder="შეიყვანეთ ავტორი"
@@ -169,6 +177,7 @@ export default function AddBlog() {
               value={Form.author}
             />
             <Input
+              require={true}
               handleChange={handleChange}
               title="სათაური *"
               placeholder="შეიყვანეთ სათაური"
@@ -180,6 +189,7 @@ export default function AddBlog() {
           </div>
 
           <Input
+            require={true}
             isTextArea={true}
             handleChange={handleChange}
             title="აღწერა *"
@@ -209,6 +219,7 @@ export default function AddBlog() {
             />
           </div>
           <Input
+            require={true}
             handleChange={handleChange}
             title="ელ-ფოსტა"
             placeholder="Example@redberry.ge"
@@ -218,13 +229,15 @@ export default function AddBlog() {
           />
           <div className="flex py-10 w-[100%] items-end justify-end ">
             <button
+              disabled={checkValues()}
+              type="submit"
               onClick={SendDataToDb}
               className="py-[10px] px-[20px] bg-[#5D37F3]  w-[288px] h-[40px] rounded-[8px] text-white"
             >
               გამოქვეყნება
             </button>
           </div>
-        </div>
+        </form>
       </section>
     </section>
   );

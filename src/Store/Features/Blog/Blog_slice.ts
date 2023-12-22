@@ -3,6 +3,7 @@ import { GetBlogData } from "./Blog_thunk";
 
 const initialState = {
   data: [],
+  image: null,
   loading: false,
   success: "",
   error: "",
@@ -11,7 +12,11 @@ const initialState = {
 const BlogSlice = createSlice({
   name: "blog",
   initialState,
-  reducers: {},
+  reducers: {
+    setImage: (state, action) => {
+      state.image = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(GetBlogData.pending, (state) => {
@@ -31,6 +36,6 @@ const BlogSlice = createSlice({
   },
 });
 
-export const {} = BlogSlice.actions;
+export const { setImage } = BlogSlice.actions;
 
 export default BlogSlice.reducer;

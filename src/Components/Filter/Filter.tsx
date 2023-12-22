@@ -9,11 +9,8 @@ export type RefrenceFilterTpye = {
   background_color: string;
 };
 export default function Filter() {
-  const dispatch = useDispatch<any>();
   const { loading, data } = useSelector((state: any) => state.RefrenceReducer);
-  useEffect(() => {
-    dispatch(GetRefrenceData());
-  }, []);
+
   if (loading) {
     return <div>Loading</div>;
   }

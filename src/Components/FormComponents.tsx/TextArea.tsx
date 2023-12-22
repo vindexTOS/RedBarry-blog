@@ -19,7 +19,7 @@ const TextArea: FC<InputProps> = ({
 }) => {
   return (
     <div className="flex flex-col gap-2">
-      <label className="px-2 font-bold" htmlFor={name}>
+      <label className="px-2 font-bold  text-[#1A1A1F]" htmlFor={name}>
         {title}
       </label>
       <div className="w-[600px] h-[124px] rounded-[12px] border-[1px] border-[#E4E3EB] bg-[#FCFCFD] flex items-center px-5">
@@ -33,13 +33,13 @@ const TextArea: FC<InputProps> = ({
           name={name}
           placeholder={placeholder}
         ></textarea>
-      </div>{" "}
+      </div> 
       {subArray && subArray.length > 0 && (
-        <div className="text-gray-500">
+        <ol className="text-gray-500">
           {subArray.map((val: string, i: number) => (
             <li key={i}>{val}</li>
           ))}
-        </div>
+        </ol>
       )}
     </div>
   );

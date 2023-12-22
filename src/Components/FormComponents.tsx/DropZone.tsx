@@ -1,9 +1,11 @@
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-
+import { useDispatch } from "react-redux";
+import { setImage } from "../../Store/Features/Blog/Blog_slice";
 const DropZone = () => {
+  const dispatch = useDispatch<any>();
   const onDrop = useCallback((acceptedFiles: any) => {
-    console.log("Accepted Files:", acceptedFiles);
+    dispatch(setImage(acceptedFiles[0]));
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

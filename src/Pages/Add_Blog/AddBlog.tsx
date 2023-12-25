@@ -191,7 +191,7 @@ export default function AddBlog() {
     p: `font-bold  text-[#1A1A1F]`,
   };
   return (
-    <section onClick={() => console.log(success)} className={style.section}>
+    <section className={style.section}>
       <div
         className={` ${
           success ? "" : "hidden"

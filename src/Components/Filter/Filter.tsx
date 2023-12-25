@@ -15,7 +15,7 @@ export default function Filter() {
     return <div>Loading</div>;
   }
   const style = {
-    mainDiv: `flex items-center justify-center  py-5 w-[100%] `,
+    mainDiv: `flex items-center justify-center  py-5 w-[100%] px-20`,
     filterDiv: `flex   gap-2 flex-wrap items-center justify-center  `,
   };
   return (

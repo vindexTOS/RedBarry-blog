@@ -1,4 +1,4 @@
-export type BlogType = {
+export interface BlogType {
   title: string;
   description: string;
   image: Blob;
@@ -6,4 +6,4 @@ export type BlogType = {
   publish_date: Date;
   categories: number[];
   email: string;
-};
+}

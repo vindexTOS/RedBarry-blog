@@ -14,6 +14,10 @@ function App() {
       path: "/blog",
       element: <AddBlog />,
     },
+    {
+      path: "/blog/:id",
+      element: <AddBlog />,
+    },
   ];
 
   type ReactRouteType = {

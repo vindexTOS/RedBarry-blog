@@ -25,7 +25,7 @@ export const AddNewBlog = createAsyncThunk(
     const formData = new FormData();
 
     formData.append("image", obj.image);
- 
+
     const headers = {
       Authorization: `Bearer ${import.meta.env.VITE_AuthorizationToken}`,
       "Content-Type": "multipart/form-data",
@@ -38,6 +38,26 @@ export const AddNewBlog = createAsyncThunk(
         { headers }
       );
 
+      return res.data;
+    } catch (error) {
+      const err: any = error;
+      console.log(error);
+      throw new Error(err.response.data.message);
+    }
+  }
+);
+
+export const GetSingleBlog = createAsyncThunk(
+  "get/single",
+  async (id: string) => {
+    try {
+      const headers = {
+        Authorization: `Bearer ${import.meta.env.VITE_AuthorizationToken}`,
+      };
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_API_URL}blogs/${id}`,
+        { headers }
+      );
       return res.data;
     } catch (error) {
       const err: any = error;

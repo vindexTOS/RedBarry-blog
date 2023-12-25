@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { GetRefrenceData } from "../../Store/Features/Refrence/Refrence_thunk";
 import SingleFilter from "./SingleFilter";
+import { toggleFilter } from "../../Store/Features/UiSlice/Ui_slice";
 export type RefrenceFilterTpye = {
   id: number;
   title: string;
@@ -10,19 +11,43 @@ export type RefrenceFilterTpye = {
 };
 export default function Filter() {
   const { loading, data } = useSelector((state: any) => state.RefrenceReducer);
+  const dispatch = useDispatch();
+  const [MirrorValue, setMirrorValue] = useState(
+    new Array(data.length).fill(false)
+  );
+  const handleFilter = (val: string, i: number) => {
+    let newArr = [...MirrorValue];
+    newArr[i] = !newArr[i];
+    setMirrorValue(newArr);
+    dispatch(toggleFilter(val));
+  };
 
+  // useEffect(() => {
+  //   console.log(filter);
+  // }, [filter]);
   if (loading) {
     return <div>Loading</div>;
   }
+
   const style = {
     mainDiv: `flex items-center justify-center  py-5 w-[100%] px-20`,
     filterDiv: `flex   gap-2 flex-wrap items-center justify-center  `,
   };
+
   return (
     <div className={style.mainDiv}>
       <div className={style.filterDiv}>
-        {data?.map((val: RefrenceFilterTpye) => (
-          <SingleFilter filter={val} key={val.id} />
+        {data?.map((val: RefrenceFilterTpye, i: number) => (
+          <div
+            className={`${
+              MirrorValue[i] &&
+              "outline-2 outline outline-red-600  rounded-[30px]"
+            }`}
+            onClick={() => handleFilter(val.title, i)}
+            key={val.id}
+          >
+            <SingleFilter filter={val} />
+          </div>
         ))}
       </div>
     </div>

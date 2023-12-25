@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AddNewBlog, GetBlogData } from "./Blog_thunk";
+import { AddNewBlog, GetBlogData, GetSingleBlog } from "./Blog_thunk";
 
 const initialState = {
   data: [],
+  singleBlog: {},
   image: null,
   loading: false,
   success: "",
@@ -48,6 +49,18 @@ const BlogSlice = createSlice({
         state.success = "ჩანაწერი წარმატებით დაემატა";
       })
       .addCase(AddNewBlog.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "somthing went wrong ";
+      })
+      .addCase(GetSingleBlog.pending, (state, action) => {
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(GetSingleBlog.fulfilled, (state, action) => {
+        state.loading = false;
+        state.singleBlog = action.payload.data;
+      })
+      .addCase(GetSingleBlog.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "somthing went wrong ";
       });

@@ -4,6 +4,6 @@ export interface BlogType {
   image: Blob;
   author: string;
   publish_date: Date;
-  categories: number[];
+  categories: any;
   email: string;
 }

@@ -1,52 +1,7 @@
-import React, { FC } from "react";
-import { BlogType } from "../../types/BlogTypes";
-import { RefrenceFilterTpye } from "../Filter/Filter";
-import SingleFilter from "../Filter/SingleFilter";
-import { MdArrowOutward } from "react-icons/md";
+import React from "react";
+import { useSelector } from "react-redux";
+export default function SingleBlog() {
+  const { singleBlog } = useSelector((state: any) => state.BlogReducer);
 
-export interface SingleBlogType extends BlogType {
-  id: number;
+  return <div onClick={() => console.log("hi")}>SingleBlog</div>;
 }
-
-type Data = {
-  data: SingleBlogType;
-};
-
-const SingleBlog: FC<Data> = ({ data }) => {
-  const { title, author, publish_date, image, categories, description } = data;
-  return (
-    <div className="w-[408px] h-[650px] flex flex-col gap-[24px]     00">
-      <div className="w-[100%] h-[328px] rounded-[12px]">
-        <img
-          className="w-[100%] h-[328px] rounded-[12px]"
-          src={String(image)}
-        />
-      </div>
-      <div className="flex flex-col gap-3">
-        <h1 className="text-[15px] font-bold">{author}</h1>
-        <p className="text-gray-400 text-[12px]">
-          {publish_date.toString().slice(0, 10)}
-        </p>
-      </div>
-      <div className="flex flex-col gap-3">
-        <h1 className="text-[20px] font-bold  leading-[28px] h-[50px]">
-          {title.slice(0, 70)} {title.length > 70 && "..."}
-        </h1>
-        <div className="flex flex-wrap gap-2">
-          {categories.slice(0, 3).map((val: any) => (
-            <SingleFilter filter={val} key={val.id} />
-          ))}
-        </div>
-        <p className="text-gray-600 break-normal flex	h-[50px] ">
-          {description.slice(0, 110)}{" "}
-          {description.split("").length > 120 && "..."}
-        </p>
-      </div>
-      <p className="flex items-center gap-2 font-bold text-[13px] cursor-pointer text-[#5D37F3] hover:text-[#5D37F3]/80">
-        სრულად ნახვა <MdArrowOutward />
-      </p>
-    </div>
-  );
-};
-
-export default SingleBlog;

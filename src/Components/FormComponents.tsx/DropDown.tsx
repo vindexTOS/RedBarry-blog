@@ -32,7 +32,10 @@ const DropDown: FC<DropDownProps> = ({
   useEffect(() => {
     localStorage.setItem("Display", JSON.stringify(displayCategories));
   }, [displayCategories]);
+  const [isArrayStart, setisArrayStart] = useState(false);
+
   const HandleAddingCategories = (val: RefrenceFilterTpye) => {
+    setisArrayStart(true);
     let isCategoryExist = displayCategories.find(
       (v: RefrenceFilterTpye) => v.id == val.id
     );
@@ -41,7 +44,6 @@ const DropDown: FC<DropDownProps> = ({
       handleChange(val.id);
     }
   };
-
   const HandleRemoveCategoires = (val: number) => {
     console.log(val);
     let newDisplay = displayCategories.filter(
@@ -64,21 +66,28 @@ const DropDown: FC<DropDownProps> = ({
   useOutClick(cancleRef, handleCancel);
 
   return (
-    <div ref={cancleRef} className="flex flex-col gap-2 relative">
+    <div ref={cancleRef} className={"flex flex-col gap-2 relative "}>
       <label className="px-2 font-bold  text-[#1A1A1F]" htmlFor={name}>
         {title}
       </label>
-      <div className="w-[288px] h-[44px] rounded-[12px] border-[1px] border-[#E4E3EB] bg-[#FCFCFD] flex items-center justify-between px-5">
+      <div
+        className={`${
+          isArrayStart && displayCategories.length <= 0
+            ? " bg-red-600/20  border-red-600 "
+            : !isArrayStart
+            ? ""
+            : "bg-green-600/20  border-green-600"
+        }    w-[288px] h-[44px] rounded-[12px] border-[1px]  flex items-center justify-between px-5`}
+      >
         {displayCategories.length > 0 ? (
           <div className="flex gap-1 relative  w-[95%]  items-center mt-4 overflow-x-scroll overflow-y-hidden scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent  ">
-            {displayCategories.map((val: RefrenceFilterTpye) => {
+            {displayCategories.map((val: RefrenceFilterTpye, i: number) => {
               return (
-                <div className="mr-[6px]">
+                <div className="mr-[6px]" key={val.id}>
                   <SingleFilter
                     removeFunction={HandleRemoveCategoires}
                     isFilter={true}
                     filter={val}
-                    key={val.id}
                   />
                 </div>
               );
@@ -119,9 +128,9 @@ const DropDown: FC<DropDownProps> = ({
                 return val;
               }
             })
-            .map((val: RefrenceFilterTpye) => (
-              <div onClick={() => HandleAddingCategories(val)}>
-                <SingleFilter filter={val} key={val.id} />
+            .map((val: RefrenceFilterTpye, i: number) => (
+              <div onClick={() => HandleAddingCategories(val)} key={val.id}>
+                <SingleFilter filter={val} />
               </div>
             ))}
         </div>

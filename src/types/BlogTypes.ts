@@ -1,9 +1,9 @@
 export type BlogType = {
   title: string;
   description: string;
-  image?: Blob;
+  image: Blob;
   author: string;
-  publish_date: string;
+  publish_date: Date;
   categories: number[];
   email: string;
 };

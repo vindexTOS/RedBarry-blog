@@ -22,14 +22,19 @@ export const GetBlogData = createAsyncThunk("get/blogs", async () => {
 export const AddNewBlog = createAsyncThunk(
   "post/blog",
   async (obj: BlogType) => {
+    const formData = new FormData();
+
+    formData.append("image", obj.image);
+ 
     const headers = {
       Authorization: `Bearer ${import.meta.env.VITE_AuthorizationToken}`,
+      "Content-Type": "multipart/form-data",
     };
-
+    console.log(obj);
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_BASE_API_URL}blogs`,
-        { obj },
+        { formData, ...obj },
         { headers }
       );
 

@@ -11,15 +11,19 @@ import { BsImageFill } from "react-icons/bs";
 import { FiX } from "react-icons/fi";
 import { setImage } from "../../Store/Features/Blog/Blog_slice";
 import { AddNewBlog } from "../../Store/Features/Blog/Blog_thunk";
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import LoadingComponent from "../../Components/Status/Loading";
+import BlogPosted from "../../Components/FormComponents.tsx/BlogPosted";
 export type SubArrayType = {
   title: string;
   isCompleted: boolean;
 };
 export default function AddBlog() {
   const navigation = useNavigate();
-  const dispatch = useDispatch<any>();
-  // states
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   // refrence states
+
+  // initial state hardcoded
   const defaultAuthorSubArray = [
     { title: "მინიმუმ 4 სიმბოლო", isCompleted: false },
     { title: "მინიმუმ ორი სიტყვა", isCompleted: false },
@@ -33,9 +37,22 @@ export default function AddBlog() {
   const defaultDescriptionSubArray = [
     { title: "მინიმუმ 4 სიმბოლო", isCompleted: false },
   ];
+
+  const emailSubArray = [
+    [
+      {
+        title: "",
+        isCompleted: false,
+      },
+    ],
+  ];
+  //getting changed initial state from local storage
   let authorArr = localStorage.getItem("authorSubArray");
   let titleArr = localStorage.getItem("titleSubArray");
   let decArr = localStorage.getItem("descriptionSubArray");
+  let emailArr = localStorage.getItem("emailSubArray");
+  // giving initial state to useState to change it dynamicily
+  //checking if data on local storage exists, if so we take data from local storage if not we set initial state in to useState
   const [AuthorSubArray, setAuthorSubArray] = useState<SubArrayType[]>(
     authorArr ? JSON.parse(authorArr) : defaultAuthorSubArray
   );
@@ -46,8 +63,14 @@ export default function AddBlog() {
     SubArrayType[]
   >(decArr ? JSON.parse(decArr) : defaultDescriptionSubArray);
 
+  const [EmailSubArray, setEmailSubArray] = useState<SubArrayType[]>(
+    emailArr ? JSON.parse(emailArr) : emailSubArray
+  );
+
   // main states
-  const { image } = useSelector((state: any) => state.BlogReducer);
+  const { image, loading, success } = useSelector(
+    (state: any) => state.BlogReducer
+  );
 
   const storedItem = localStorage.getItem("blogForm");
 
@@ -57,43 +80,38 @@ export default function AddBlog() {
         email: "",
         title: "",
         description: "",
-        publish_date: "",
+        publish_date: new Date(),
         categories: [],
         author: "",
       };
   const [Form, setForm] = useState<BlogType>(savedForm);
-  const checkValues = () => {
-    for (const key in Form) {
-      if (Form.hasOwnProperty(key) && Form[key as keyof BlogType] === "") {
-        return false;
-      }
-    }
-    return true;
-  };
+
   useEffect(() => {
     localStorage.setItem("blogForm", JSON.stringify(Form));
   }, [Form]);
   // validation
+
   const isGeorgianName = (name: string): boolean => {
     const georgianRange = /^[\u10A0-\u10FF]+$/;
     return georgianRange.test(name.split(" ").join(""));
   };
 
   const isForLetters = (string: string): boolean => {
-    return string.split("").length >= 4;
+    return string.split("").length + 1 >= 4;
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | any
   ) => {
     // getting event value
     const { name, value } = e.target;
-
+    console.log(e.target);
     setForm((prevData) => ({ ...prevData, [name]: value }));
     // validation
     let newAuthor = [...AuthorSubArray];
     let newTitle = [...TitleSubArray];
     let newDes = [...DescriptionSubArray];
+    let newEmail = [...EmailSubArray];
     switch (name) {
       case "author":
         newAuthor[0].isCompleted = isForLetters(Form.author);
@@ -109,8 +127,40 @@ export default function AddBlog() {
         newDes[0].isCompleted = isForLetters(Form.description);
         localStorage.setItem("descriptionSubArray", JSON.stringify(newDes));
         break;
+      case "email":
+        newEmail[0].isCompleted = value.endsWith("@redberry.ge");
+        localStorage.setItem("emailSubArray", JSON.stringify(newEmail));
+        break;
     }
   };
+  // checcking if all values are fill
+
+  const areAllCompleted = (subArray: SubArrayType[]) => {
+    for (const subItem of subArray) {
+      if (!subItem.isCompleted) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const isAllCompleted = () => {
+    const authorCompleted = areAllCompleted(AuthorSubArray);
+    const titleCompleted = areAllCompleted(TitleSubArray);
+    const descriptionCompleted = areAllCompleted(DescriptionSubArray);
+    const emailCompleted = areAllCompleted(EmailSubArray);
+
+    return (
+      authorCompleted &&
+      titleCompleted &&
+      descriptionCompleted &&
+      emailCompleted &&
+      Form.categories.length > 0 &&
+      image
+    );
+  };
+  const allCompleted = isAllCompleted();
+
   // categories filters
   const handleCategorie = (Id: number) => {
     let categoRies: number[] = [...Form.categories];
@@ -122,9 +172,12 @@ export default function AddBlog() {
     let newCategories = Form.categories.filter((val: number) => val !== Id);
     setForm((prevData) => ({ ...prevData, categories: newCategories }));
   };
+
+  // adding photo
+
   // sending to database
   const SendDataToDb = async () => {
-    dispatch(AddNewBlog({ ...Form, image }));
+    await dispatch(AddNewBlog({ ...Form, image }));
   };
   // styling
   const style = {
@@ -138,12 +191,19 @@ export default function AddBlog() {
     p: `font-bold  text-[#1A1A1F]`,
   };
   return (
-    <section className={style.section}>
+    <section onClick={() => console.log(success)} className={style.section}>
+      <div
+        className={` ${
+          success ? "" : "hidden"
+        }  absolute w-[100vw] h-[100vh] bg-gray-400/40 flex items-center justify-center `}
+      >
+        <BlogPosted />
+      </div>
       <div onClick={() => navigation("/")} className={style.iconDiv}>
         <MdOutlineArrowBackIos className="text-[1.2rem]" />
       </div>
       <section className={style.blogSection}>
-        <form className={style.blogContainer}>
+        <div className={style.blogContainer}>
           <h1 className={style.h1}>ბლოგის დამატება</h1>
           <div className={style.DropZoneWrapper}>
             <p className={style.p}>ატვირთე ფოტო</p>
@@ -201,11 +261,12 @@ export default function AddBlog() {
           />
           <div className={`${style.topinputWrapper}   `}>
             <DataPicker
+              value={Form.publish_date}
               handleChange={handleChange}
               title="გამოქვეყნების თარიღი *"
               placeholder="შეიყვანეთ აღწერა"
               type="text"
-              name="date"
+              name="publish_date"
               subArray={["მინიმუმ 2 სიმბოლო"]}
             />
 
@@ -225,19 +286,23 @@ export default function AddBlog() {
             placeholder="Example@redberry.ge"
             type="email"
             name="email"
+            subArray={EmailSubArray}
             value={Form.email}
           />
           <div className="flex py-10 w-[100%] items-end justify-end ">
+            <LoadingComponent loading={loading} />
+
             <button
-              disabled={checkValues()}
-              type="submit"
+              disabled={!allCompleted}
               onClick={SendDataToDb}
-              className="py-[10px] px-[20px] bg-[#5D37F3]  w-[288px] h-[40px] rounded-[8px] text-white"
+              className={` ${
+                allCompleted ? "bg-[#5D37F3]" : "bg-gray-400"
+              } py-[10px] px-[20px]   w-[288px] h-[40px] rounded-[8px] text-white`}
             >
               გამოქვეყნება
             </button>
           </div>
-        </form>
+        </div>
       </section>
     </section>
   );

@@ -5,7 +5,9 @@ import { setImage } from "../../Store/Features/Blog/Blog_slice";
 const DropZone = () => {
   const dispatch = useDispatch<any>();
   const onDrop = useCallback((acceptedFiles: any) => {
-    dispatch(setImage(acceptedFiles[0]));
+    const file = acceptedFiles[0];
+
+    dispatch(setImage(file));
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

@@ -10,8 +10,9 @@ type DataPickerProps = {
   name: string;
   subArray?: string[];
   handleChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | any
   ) => void;
+  value: Date | null;
 };
 const DataPicker: FC<DataPickerProps> = ({
   title,
@@ -20,10 +21,19 @@ const DataPicker: FC<DataPickerProps> = ({
   name,
   subArray,
   handleChange,
+  value,
 }) => {
-  const [startDate, setStartDate] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   const handleData = (e: any) => {
-    handleChange(e);
+    setDate(e);
+    const event = {
+      target: {
+        value: e,
+        name,
+      },
+    };
+
+    handleChange(event);
   };
   return (
     <div className="flex flex-col gap-2">
@@ -35,8 +45,8 @@ const DataPicker: FC<DataPickerProps> = ({
           <FaCalendarAlt className="text-gray-300 mb-1" />
           <DatePicker
             style={{ background: "#FCFCFD" }}
-            selected={startDate}
-            onChange={(date: Date) => handleData(date)}
+            selected={date}
+            onChange={(date: Date | null) => handleData(date)}
           />
         </div>
       </div>

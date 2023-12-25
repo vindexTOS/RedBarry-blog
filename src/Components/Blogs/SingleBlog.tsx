@@ -15,7 +15,7 @@ type Data = {
 const SingleBlog: FC<Data> = ({ data }) => {
   const { title, author, publish_date, image, categories, description } = data;
   return (
-    <div className="w-[408px] h-[620px] flex flex-col gap-[24px] py-20 pb-40">
+    <div className="w-[408px] h-[650px] flex flex-col gap-[24px]     00">
       <div className="w-[100%] h-[328px] rounded-[12px]">
         <img
           className="w-[100%] h-[328px] rounded-[12px]"
@@ -28,14 +28,16 @@ const SingleBlog: FC<Data> = ({ data }) => {
           {publish_date.toString().slice(0, 10)}
         </p>
       </div>
-      <div className="flex flex-col gap-7">
-        <h1 className="text-[22px] font-bold  leading-[28px]">{title}</h1>
+      <div className="flex flex-col gap-3">
+        <h1 className="text-[20px] font-bold  leading-[28px] h-[50px]">
+          {title.slice(0, 70)} {title.length > 70 && "..."}
+        </h1>
         <div className="flex flex-wrap gap-2">
-          {categories.slice(0, 5).map((val: any) => (
+          {categories.slice(0, 3).map((val: any) => (
             <SingleFilter filter={val} key={val.id} />
           ))}
         </div>
-        <p className="text-gray-600 break-normal flex	">
+        <p className="text-gray-600 break-normal flex	h-[50px] ">
           {description.slice(0, 110)}{" "}
           {description.split("").length > 120 && "..."}
         </p>

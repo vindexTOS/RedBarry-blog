@@ -15,7 +15,7 @@ const Blogs = () => {
     return <div>loading</div>;
   }
   return (
-    <div className="flex flex-wrap w-[100vw] items-center justify-center py-10  gap-10 ">
+    <div className="flex flex-wrap w-[100vw] items-center justify-center py-10  gap-8 ">
       {data?.map((val: SingleBlogType) => (
         <SingleBlog key={val.id} data={val} />
       ))}

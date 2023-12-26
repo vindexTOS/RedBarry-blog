@@ -158,7 +158,7 @@ export default function SingleBlog() {
                 return isPublished && hasMatchingCategory;
               })
               .map((val: SingleBlogType) => (
-                <div key={val.id}>
+                <div key={val.id} className="flex w-[408px]">
                   <SingleBlogCard data={val} />
                 </div>
               ))}

@@ -36,9 +36,11 @@ const SingleBlog: FC<Data> = ({ data }) => {
           {publish_date.toString().slice(0, 10)}
         </p>
       </div>
-      <div className="flex flex-col gap-2">
-        <h1 className="text-[20px] font-bold  leading-[28px] h-[60px]">
-          {title.slice(0, 70)} {title.length > 70 && "..."}
+      <div className="flex flex-col gap-2 w-[408px]  ">
+        <h1 className="text-[20px]  max-w-full text-start overflow-hidden font-bold break-words  leading-[28px] h-[60px]">
+          <span className="">
+            {title.slice(0, 40)} {title.length > 40 && "..."}
+          </span>
         </h1>
         <div className="flex flex-wrap gap-2 z-50  max-h-[300px]  min-h-[50px] ">
           {categories
@@ -55,9 +57,9 @@ const SingleBlog: FC<Data> = ({ data }) => {
             </div>
           )}
         </div>
-        <p className="text-gray-600 break-normal flex	h-[50px] ">
-          {description.slice(0, 90)}{" "}
-          {description.split("").length > 90 && "..."}
+        <p className="text-gray-600 break-normal flex	h-[30px] overflow-hidden w-[408px] ">
+          {description.slice(0, 50)}{" "}
+          {description.split("").length > 50 && "..."}
         </p>
       </div>
       <p

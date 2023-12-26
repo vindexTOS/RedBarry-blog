@@ -59,8 +59,8 @@ export default function SingleBlog() {
   const style = {
     section: `w-[100%] flex flex-col relative bg-[#FBFAFF] items-center justify-center py-10`,
     iconDiv: `p-3 rounded-[50%] bg-gray-200 absolute left-10 top-8 hover:bg-gray-300 cursor-pointer`,
-    mainDiv: `h-[100%] w-[720px] flex flex-col   gap-[6rem] py-20`,
-    img: `w-[720px] h-[328px] rounded-[12px]`,
+    mainDiv: `h-[100%] w-[720px] flex flex-col   gap-[3rem] py-20`,
+    img: `w-[720px] h-[388px] rounded-[12px]`,
     likeItSection: `w-[1264px] items-center justify-start gap-5  flex  overflow-x-scroll `,
     headerAndArrows: `w-[100%] flex justify-between  py-5`,
     header: `text-[1.2rem] font-bold`,
@@ -83,10 +83,7 @@ export default function SingleBlog() {
     } = singleBlog || {};
 
     return (
-      <section
-        className={style.section}
-        onClick={() => console.log(singleBlog)}
-      >
+      <section className={style.section}>
         <span ref={topScrollRef}></span>
 
         <div onClick={() => navigation("/")} className={style.iconDiv}>
@@ -94,7 +91,7 @@ export default function SingleBlog() {
         </div>
         <div className={style.mainDiv}>
           <div className={style.img}>
-            <img className="rounded-[12px]" src={image} />
+            <img className="rounded-[12px] w-[100%] h-[100%] " src={image} />
           </div>
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">

@@ -6,12 +6,14 @@ type SingleFilterPropType = {
   filter: RefrenceFilterTpye;
   isFilter?: boolean;
   removeFunction?: any;
+  i?: number;
 };
 
 const SingleFilter: FC<SingleFilterPropType> = ({
   filter,
   isFilter,
   removeFunction,
+  i,
 }) => {
   const dynamicStyles = {
     gap: "10px",
@@ -33,7 +35,7 @@ const SingleFilter: FC<SingleFilterPropType> = ({
       <p>{filter.title}</p>
       {isFilter && (
         <FiX
-          onClick={() => removeFunction(filter.id)}
+          onClick={() => removeFunction(filter.id, i)}
           className="text-white   text-[14px] font-bold "
         />
       )}

@@ -27,19 +27,15 @@ export default function BlogPosted() {
   };
 
   const style = {
-    loginDiv: `  w-[480px] h-[272px] shrink-0 bg-[#FFF] rounded-[12px] flex flex-col items-center  justify-around  relative  z-50`,
+    loginDiv: `   w-[480px] h-[272px] shrink-0 bg-[#FFF] rounded-[12px] flex flex-col items-center  justify-around  relative  z-50`,
     cancel: `absolute text-[1.3rem] text-gray-500 top-1 right-2`,
     h1: `font-bold text-[1.5rem]`,
 
     btn: `flex w-[432px] h-[20px] text-white   py-5 rounded-[8px] justify-center items-center gap-10   bg-[#5D37F3]`,
   };
   return (
-    <div
-      onClick={() => console.log(success)}
-      ref={cancleRef}
-      className={style.loginDiv}
-    >
-      <MdOutlineCancel onClick={handleClose} className={style.cancel} />
+    <div ref={cancleRef} className={style.loginDiv}>
+      {/* <MdOutlineCancel onClick={handleClose} className={style.cancel} /> */}
 
       <div className="flex flex-col items-center justify-center gap-2 mt-5">
         <FaCheckCircle className="text-green-400 text-[3rem]" />

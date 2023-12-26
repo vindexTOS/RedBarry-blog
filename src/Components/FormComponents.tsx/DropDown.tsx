@@ -33,8 +33,10 @@ const DropDown: FC<DropDownProps> = ({
     localStorage.setItem("Display", JSON.stringify(displayCategories));
   }, [displayCategories]);
   const [isArrayStart, setisArrayStart] = useState(false);
-
-  const HandleAddingCategories = (val: RefrenceFilterTpye) => {
+  const [selectedFilterMirror, setSelectedFilterMirror] = useState(
+    new Array(displayCategories.length).fill(false)
+  );
+  const HandleAddingCategories = (val: RefrenceFilterTpye, i: number) => {
     setisArrayStart(true);
     let isCategoryExist = displayCategories.find(
       (v: RefrenceFilterTpye) => v.id == val.id
@@ -44,8 +46,7 @@ const DropDown: FC<DropDownProps> = ({
       handleChange(val.id);
     }
   };
-  const HandleRemoveCategoires = (val: number) => {
-    console.log(val);
+  const HandleRemoveCategoires = (val: number, i: number) => {
     let newDisplay = displayCategories.filter(
       (v: RefrenceFilterTpye) => v.id !== val
     );
@@ -85,6 +86,7 @@ const DropDown: FC<DropDownProps> = ({
               return (
                 <div className="mr-[6px]" key={val.id}>
                   <SingleFilter
+                    i={i}
                     removeFunction={HandleRemoveCategoires}
                     isFilter={true}
                     filter={val}
@@ -129,7 +131,7 @@ const DropDown: FC<DropDownProps> = ({
               }
             })
             .map((val: RefrenceFilterTpye, i: number) => (
-              <div onClick={() => HandleAddingCategories(val)} key={val.id}>
+              <div onClick={() => HandleAddingCategories(val, i)} key={val.id}>
                 <SingleFilter filter={val} />
               </div>
             ))}

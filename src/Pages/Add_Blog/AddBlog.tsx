@@ -183,7 +183,7 @@ export default function AddBlog() {
   };
   // styling
   const style = {
-    section: `w-[100%] flex relative bg-[#FBFAFF]`,
+    section: `w-[100%] flex   bg-[#FBFAFF]`,
     iconDiv: `p-3 rounded-[50%] bg-gray-200 absolute left-10 top-8 hover:bg-gray-300 cursor-pointer`,
     h1: `text-[1.6rem] font-bold   text-[#1A1A1F] `,
     blogSection: `flex flex-col w-[100%] items-center  justify-center  py-10 pb-20 `,
@@ -198,7 +198,7 @@ export default function AddBlog() {
         <div
           className={` ${
             success ? "" : "hidden"
-          }  absolute w-[100vw] h-[100vh] bg-gray-400/40 flex items-center justify-center `}
+          }  absolute w-[100vw] h-[1200px] top-0  bg-gray-500/40 flex items-start py-[20rem] justify-center `}
         >
           <BlogPosted />
         </div>

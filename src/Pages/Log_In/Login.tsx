@@ -39,7 +39,7 @@ export default function Login() {
     handleClose();
   };
   const style = {
-    mainDiv: `w-[100vw]  h-[91vh] absolute  overflow-hidden	 bg-gray-500/20 flex items-center justify-center`,
+    mainDiv: `w-[100vw]  h-[91vh] absolute  overflow-hidden	 bg-gray-500/20 flex items-center justify-center z-50`,
     loginDiv: `w-[480px] h-[272px] shrink-0 bg-[#FFF] rounded-[12px] flex flex-col items-center  justify-around relative`,
     cancel: `absolute text-[1.3rem] text-gray-500 top-1 right-2`,
     h1: `font-bold text-[1.5rem]`,

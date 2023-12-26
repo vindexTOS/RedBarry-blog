@@ -31,8 +31,9 @@ export default function Filter() {
   // useEffect(() => {
   //   console.log(filter);
   // }, [filter]);
+  const [showAllFilters, setShowAllFilters] = useState(false);
   const style = {
-    mainDiv: `flex items-center justify-center  py-5 w-[100%] px-20`,
+    mainDiv: `flex flex-col gap-2 items-center justify-center  py-2 w-[100%] px-20`,
     filterDiv: `flex   gap-2 flex-wrap items-center justify-center  `,
   };
   if (loading) {
@@ -46,18 +47,26 @@ export default function Filter() {
   return (
     <div className={style.mainDiv}>
       <div className={style.filterDiv}>
-        {data?.map((val: RefrenceFilterTpye, i: number) => (
-          <div
-            className={`${
-              MirrorValue[i] &&
-              "outline-2 outline outline-gray-800  rounded-[30px]"
-            }`}
-            onClick={() => handleFilter(val.title, i)}
-            key={val.id}
-          >
-            <SingleFilter filter={val} />
-          </div>
-        ))}
+        {data
+          ?.slice(0, showAllFilters ? data.length : 5)
+          .map((val: RefrenceFilterTpye, i: number) => (
+            <div
+              className={`${
+                MirrorValue[i] &&
+                "outline-2 outline outline-gray-800  rounded-[30px]"
+              }`}
+              onClick={() => handleFilter(val.title, i)}
+              key={val.id}
+            >
+              <SingleFilter filter={val} />
+            </div>
+          ))}
+        <div
+          onClick={() => setShowAllFilters(!showAllFilters)}
+          className={`${" h-[30px] flex  items-center justify-center  bg-gray-300  rounded-[16px] text-white  hover:bg-gray-500 cursor-pointer  text-center py-[5px] px-[12px]"}`}
+        >
+          {showAllFilters ? "ნახე ნაკლები" : `ნახე ყველა ფილტრი`}
+        </div>
       </div>
     </div>
   );

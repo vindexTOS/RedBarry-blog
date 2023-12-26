@@ -13,7 +13,6 @@
 .boxShaddowDropDown {
   box-shadow: 2px 4px 8px 0px #00000014;
 }
-/* For WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -26,7 +25,6 @@
   background-color: transparent;
 }
 
-/* For Firefox */
 .scrollbar-thin {
   scrollbar-width: thin;
 }

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetRefrenceData } from "./Store/Features/Refrence/Refrence_thunk";
 export default function LayOut({ children }: { children: React.ReactNode }) {
   const style = {
-    main: `bg-[#F3F2FA]`,
+    main: `bg-[#F3F2FA] relative`,
   };
   const { ShowLogIn } = useSelector((state: any) => state.UiReducer);
   const dispatch = useDispatch<any>();

@@ -39,15 +39,19 @@ export default function Login() {
     handleClose();
   };
   const style = {
-    mainDiv: `w-[100vw]  h-[91vh] absolute  overflow-hidden	 bg-gray-500/20 flex items-center justify-center z-50`,
+    mainDiv: `w-[100vw]  h-[100vh] absolute  top-0 overflow-hidden	 bg-gray-500/40 flex items-center justify-center z-50`,
     loginDiv: `w-[480px] h-[272px] shrink-0 bg-[#FFF] rounded-[12px] flex flex-col items-center  justify-around relative`,
     cancel: `absolute text-[1.3rem] text-gray-500 top-1 right-2`,
+    SuccsesMessageDiv: `flex flex-col items-center justify-center gap-2 mt-5`,
+    checkIcon: `text-green-400 text-[3rem]`,
     h1: `font-bold text-[1.5rem]`,
     inputWrapper: `flex flex-col items-centet justify-around gap-2`,
     label: `text-[#1A1A1F] text-[1.2rem]   font-medium leading-20`,
     input: `w-[432px] h-[44px] flex-shrink-0 rounded-[12px] border-[1.5px]  px-4 py-2 ${
       error ? "border-red-500 bg-red-600/10" : "border-[#5D37F3] bg-[#F7F7FF]"
     }`,
+    error: `text-red-600 text-[15px] font-bold flex items-center justify-start gap-2`,
+    Erroricon: `mt-1 text-[1.2rem]`,
     btn: `flex w-[432px] h-[20px] text-white   py-5 rounded-[8px] justify-center items-center gap-10   bg-[#5D37F3]`,
   };
 
@@ -57,8 +61,8 @@ export default function Login() {
         <div ref={cancleRef} className={style.loginDiv}>
           <MdOutlineCancel onClick={handleClose} className={style.cancel} />
 
-          <div className="flex flex-col items-center justify-center gap-2 mt-5">
-            <FaCheckCircle className="text-green-400 text-[3rem]" />
+          <div className={style.SuccsesMessageDiv}>
+            <FaCheckCircle className={style.checkIcon} />
             <h1 className={style.h1}>{success}</h1>
           </div>
           <button onClick={handleSuccseLogIn} className={style.btn}>
@@ -82,8 +86,8 @@ export default function Login() {
               placeholder="Example@redberry.ge"
             />
             {error && (
-              <div className="text-red-600 text-[15px] font-bold flex items-center justify-start gap-2 ">
-                <HiMiniExclamationCircle className="mt-1 text-[1.2rem]" />
+              <div className={style.error}>
+                <HiMiniExclamationCircle className={style.Erroricon} />
                 {error}
               </div>
             )}

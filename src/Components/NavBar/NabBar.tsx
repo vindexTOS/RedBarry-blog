@@ -23,7 +23,7 @@ export default function NabBar() {
         ? "justify-center "
         : "justify-between"
     } px-20`,
-    img: "w-[150px] h-[24px] shrink-0",
+    img: "w-[150px] h-[24px] shrink-0 cursor-pointer",
     btn: ` ${
       location.pathname === "/create-blog" && "hidden"
     } inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md bg-[#5D37F3] text-white font-fira-go font-medium text-base`,

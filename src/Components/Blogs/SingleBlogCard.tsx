@@ -36,11 +36,11 @@ const SingleBlog: FC<Data> = ({ data }) => {
           {publish_date.toString().slice(0, 10)}
         </p>
       </div>
-      <div className="flex flex-col gap-1">
-        <h1 className="text-[20px] font-bold  leading-[28px] h-[40px]">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-[20px] font-bold  leading-[28px] h-[60px]">
           {title.slice(0, 70)} {title.length > 70 && "..."}
         </h1>
-        <div className="flex flex-wrap gap-1 z-50  max-h-[300px]  min-h-[100px] ">
+        <div className="flex flex-wrap gap-2 z-50  max-h-[300px]  min-h-[50px] ">
           {categories
             .slice(0, openMoreFilters ? categories.length : 3)
             .map((val: any) => (
@@ -56,8 +56,8 @@ const SingleBlog: FC<Data> = ({ data }) => {
           )}
         </div>
         <p className="text-gray-600 break-normal flex	h-[50px] ">
-          {description.slice(0, 110)}{" "}
-          {description.split("").length > 120 && "..."}
+          {description.slice(0, 90)}{" "}
+          {description.split("").length > 90 && "..."}
         </p>
       </div>
       <p

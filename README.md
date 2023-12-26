@@ -5,8 +5,7 @@
 [Live WebSIte](https://658aba6ee2582c928ae19d82--redberryblog.netlify.app/)
  # Redberry Bootcamp Challenge: Simple Blog Application
 
-Welcome to the **Redberry Bootcamp Challenge** repository for a **Simple Blog Application**!
-
+ 
 ## Overview
 
 This project serves as a demonstration of a simple blog application built using **React**, **TypeScript**, **Tailwind CSS** for styling, and **Redux** for state management. Users can sign in, post a blog, filter posts, and view individual posts along with related posts.

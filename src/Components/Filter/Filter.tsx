@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { GetRefrenceData } from "../../Store/Features/Refrence/Refrence_thunk";
 import SingleFilter from "./SingleFilter";
 import { toggleFilter } from "../../Store/Features/UiSlice/Ui_slice";
+import FilterLoading from "../LoadingSkeletons/FilterLoading";
 export type RefrenceFilterTpye = {
   id: number;
   title: string;
@@ -30,14 +31,17 @@ export default function Filter() {
   // useEffect(() => {
   //   console.log(filter);
   // }, [filter]);
-  if (loading) {
-    return <div>Loading</div>;
-  }
-
   const style = {
     mainDiv: `flex items-center justify-center  py-5 w-[100%] px-20`,
     filterDiv: `flex   gap-2 flex-wrap items-center justify-center  `,
   };
+  if (loading) {
+    return (
+      <div className={style.filterDiv}>
+        <FilterLoading />
+      </div>
+    );
+  }
 
   return (
     <div className={style.mainDiv}>

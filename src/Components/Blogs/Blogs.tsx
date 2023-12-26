@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetBlogData } from "../../Store/Features/Blog/Blog_thunk";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import SingleBlog, { SingleBlogType } from "./SingleBlogCard";
+import SingleCardLoading from "../LoadingSkeletons/SingleCardLoading";
 const Blogs = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const { data, loading } = useSelector((state: any) => state.BlogReducer);
@@ -13,7 +14,13 @@ const Blogs = () => {
   }, []);
 
   if (loading) {
-    return <div>loading</div>;
+    return (
+      <div className="flex flex-wrap w-[100vw] items-center justify-center py-40  gap-8 ">
+        {new Array(10).fill("").map((val: string, i: number) => (
+          <SingleCardLoading key={i} />
+        ))}
+      </div>
+    );
   }
   return (
     <div className="flex flex-wrap w-[100vw] items-center justify-center py-40  gap-8 ">

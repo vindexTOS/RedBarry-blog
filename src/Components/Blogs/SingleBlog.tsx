@@ -6,7 +6,7 @@ import {
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   GetBlogData,
   GetSingleBlog,
@@ -15,6 +15,7 @@ import { LuDot } from "react-icons/lu";
 import SingleFilter from "../Filter/SingleFilter";
 import { SingleBlogType } from "./SingleBlogCard";
 import SingleBlogCard from "./SingleBlogCard";
+import SinglePageLoading from "../LoadingSkeletons/SinglePageLoading";
 export default function SingleBlog() {
   const { singleBlog, data, loading } = useSelector(
     (state: any) => state.BlogReducer
@@ -23,22 +24,19 @@ export default function SingleBlog() {
   const navigation = useNavigate();
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const { id } = useParams();
-  const style = {
-    section: `w-[100%] flex flex-col relative bg-[#FBFAFF] items-center justify-center py-10`,
-    iconDiv: `p-3 rounded-[50%] bg-gray-200 absolute left-10 top-8 hover:bg-gray-300 cursor-pointer`,
-    mainDiv: `h-[100%] w-[720px] flex flex-col   gap-[6rem] py-20`,
-    img: `w-[720px] h-[328px] rounded-[12px]`,
-    likeItSection: `w-[1264px] items-center justify-start gap-5  flex  overflow-x-scroll `,
-    headerAndArrows: `w-[100%] flex justify-between  py-5`,
-    header: `text-[1.2rem] font-bold`,
-    arrowDiv: `flex  gap-5 text-[1.5rem] font-bold`,
-    arrow: `bg-gray-200 text-white rounded-[50%] w-[2.5rem] h-[2.5rem] flex items-center justify-center hover:bg-[#5D37F3] cursor-pointer `,
-  };
+
   useEffect(() => {
     dispatch(GetSingleBlog(Number(id)));
     dispatch(GetBlogData());
   }, [id]);
 
+  const local = useLocation();
+  const topScrollRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const element = topScrollRef.current as HTMLDivElement;
+    element?.scrollIntoView({ behavior: "smooth" });
+  }, [local]);
   const scrollRef = useRef(null);
   const handleScroll = (direction: "left" | "right") => {
     const scrollDistance = 435;
@@ -58,9 +56,19 @@ export default function SingleBlog() {
       }
     }
   };
-
+  const style = {
+    section: `w-[100%] flex flex-col relative bg-[#FBFAFF] items-center justify-center py-10`,
+    iconDiv: `p-3 rounded-[50%] bg-gray-200 absolute left-10 top-8 hover:bg-gray-300 cursor-pointer`,
+    mainDiv: `h-[100%] w-[720px] flex flex-col   gap-[6rem] py-20`,
+    img: `w-[720px] h-[328px] rounded-[12px]`,
+    likeItSection: `w-[1264px] items-center justify-start gap-5  flex  overflow-x-scroll `,
+    headerAndArrows: `w-[100%] flex justify-between  py-5`,
+    header: `text-[1.2rem] font-bold`,
+    arrowDiv: `flex  gap-5 text-[1.5rem] font-bold`,
+    arrow: `bg-gray-200 text-white rounded-[50%] w-[2.5rem] h-[2.5rem] flex items-center justify-center hover:bg-[#5D37F3] cursor-pointer `,
+  };
   if (loading) {
-    return <div>loading</div>;
+    return <SinglePageLoading />;
   }
 
   if (singleBlog && singleBlog.publish_date) {
@@ -79,6 +87,8 @@ export default function SingleBlog() {
         className={style.section}
         onClick={() => console.log(singleBlog)}
       >
+        <span ref={topScrollRef}></span>
+
         <div onClick={() => navigation("/")} className={style.iconDiv}>
           <MdOutlineArrowBackIos className="text-[1.2rem]" />
         </div>

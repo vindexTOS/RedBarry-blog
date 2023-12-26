@@ -44,6 +44,5 @@ After installing the dependencies, you can start the development server:
 yarn run dev
 \`\`\`
 
-This will launch the application in development mode, and you can view it in your web browser at `https://658aba6ee2582c928ae19d82--redberryblog.netlify.app/`.
- 
+  
  

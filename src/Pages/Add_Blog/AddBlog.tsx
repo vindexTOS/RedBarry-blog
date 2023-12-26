@@ -214,7 +214,7 @@ export default function AddBlog() {
                 <div className="w-[100%] h-[56px] justify-between text-[1.2rem] text-gray-500  rounded-[12px] bg-[#F2F2FA] flex items-center justify-start px-5">
                   <div className="flex items-center gap-3">
                     <BsImageFill />
-                    {image.name}
+                    {image.name.slice(0, 30)}
                   </div>
                   <FiX
                     onClick={() => dispatch(setImage(null))}

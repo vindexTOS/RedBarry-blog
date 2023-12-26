@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import LayOut from "./LayOut";
 import AddBlog from "./Pages/Add_Blog/AddBlog";
+import SingleBlog from "./Components/Blogs/SingleBlog";
 
 function App() {
   const router = [
@@ -11,12 +12,12 @@ function App() {
       element: <Home />,
     },
     {
-      path: "/blog",
+      path: "/create-blog",
       element: <AddBlog />,
     },
     {
       path: "/blog/:id",
-      element: <AddBlog />,
+      element: <SingleBlog />,
     },
   ];
 

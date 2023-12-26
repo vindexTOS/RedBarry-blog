@@ -49,7 +49,7 @@ export const AddNewBlog = createAsyncThunk(
 
 export const GetSingleBlog = createAsyncThunk(
   "get/single",
-  async (id: string) => {
+  async (id: number) => {
     try {
       const headers = {
         Authorization: `Bearer ${import.meta.env.VITE_AuthorizationToken}`,
@@ -58,6 +58,7 @@ export const GetSingleBlog = createAsyncThunk(
         `${import.meta.env.VITE_BASE_API_URL}blogs/${id}`,
         { headers }
       );
+
       return res.data;
     } catch (error) {
       const err: any = error;

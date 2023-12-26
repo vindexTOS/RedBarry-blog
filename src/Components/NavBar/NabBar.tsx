@@ -19,18 +19,23 @@ export default function NabBar() {
   }, []);
   const style = {
     nav: `h-[80px] w-[100%] bg-[#FFF] border-[#E4E3EB] border-[1px] flex items-center  ${
-      location.pathname === "/blog" ? "justify-center " : "justify-between"
+      location.pathname === "/create-blog"
+        ? "justify-center "
+        : "justify-between"
     } px-20`,
     img: "w-[150px] h-[24px] shrink-0",
     btn: ` ${
-      location.pathname === "/blog" && "hidden"
+      location.pathname === "/create-blog" && "hidden"
     } inline-flex items-center justify-center gap-2 px-5 py-3 rounded-md bg-[#5D37F3] text-white font-fira-go font-medium text-base`,
   };
   return (
     <nav className={style.nav}>
       <img onClick={() => navigation("/")} className={style.img} src={logo} />
       {token ? (
-        <button onClick={() => navigation("/blog")} className={style.btn}>
+        <button
+          onClick={() => navigation("/create-blog")}
+          className={style.btn}
+        >
           დაამატე ბლოგი
         </button>
       ) : (

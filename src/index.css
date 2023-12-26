@@ -1,9 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: "Georgian-1";
+  src: url("./assets/fonts/bpg_arial_2009.ttf");
+}
 
 * {
-  font-family: "FiraGO";
+  font-family: "Georgian-1";
 }
 
 .boxShaddowDropDown {

@@ -12,16 +12,21 @@ export type RefrenceFilterTpye = {
 export default function Filter() {
   const { loading, data } = useSelector((state: any) => state.RefrenceReducer);
   const dispatch = useDispatch();
-  const [MirrorValue, setMirrorValue] = useState(
-    new Array(data.length).fill(false)
-  );
+  const [MirrorValue, setMirrorValue] = useState(() => {
+    const storedMirrorValue = localStorage.getItem("mirrorValue");
+    return storedMirrorValue
+      ? JSON.parse(storedMirrorValue)
+      : new Array(data.length).fill(false);
+  });
   const handleFilter = (val: string, i: number) => {
     let newArr = [...MirrorValue];
     newArr[i] = !newArr[i];
     setMirrorValue(newArr);
     dispatch(toggleFilter(val));
   };
-
+  useEffect(() => {
+    localStorage.setItem("mirrorValue", JSON.stringify(MirrorValue));
+  }, [MirrorValue]);
   // useEffect(() => {
   //   console.log(filter);
   // }, [filter]);
@@ -41,7 +46,7 @@ export default function Filter() {
           <div
             className={`${
               MirrorValue[i] &&
-              "outline-2 outline outline-red-600  rounded-[30px]"
+              "outline-2 outline outline-gray-800  rounded-[30px]"
             }`}
             onClick={() => handleFilter(val.title, i)}
             key={val.id}

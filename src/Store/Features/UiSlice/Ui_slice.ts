@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   ShowLogIn: false,
-  filter: [],
+  filter: localStorage.getItem("filter")
+    ? JSON.parse(localStorage.getItem("filter")!)
+    : [],
 };
 
 export const UiSlice = createSlice({
@@ -18,10 +20,12 @@ export const UiSlice = createSlice({
       const exists = state.filter.includes(valueToToggle as never);
 
       if (exists) {
-        state.filter = state.filter.filter((val) => val !== valueToToggle);
+        state.filter = state.filter.filter((val: any) => val !== valueToToggle);
       } else {
         state.filter = [...state.filter, valueToToggle] as any;
       }
+
+      localStorage.setItem("filter", JSON.stringify(state.filter));
     },
   },
 });

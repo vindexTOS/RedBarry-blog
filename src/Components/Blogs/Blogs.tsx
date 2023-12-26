@@ -16,7 +16,7 @@ const Blogs = () => {
     return <div>loading</div>;
   }
   return (
-    <div className="flex flex-wrap w-[100vw] items-center justify-center py-20  gap-8 ">
+    <div className="flex flex-wrap w-[100vw] items-center justify-center py-40  gap-8 ">
       {data
         ?.filter((val: SingleBlogType, i: number) => {
           const isPublished =

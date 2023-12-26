@@ -28,7 +28,7 @@ const SingleFilter: FC<SingleFilterPropType> = ({
   return (
     <div
       style={dynamicStyles}
-      className={`h-[32px] flex  items-center justify-center    text-center py-[8px] px-[16px] $ `}
+      className={`h-[30px] flex  items-center justify-center    text-center py-[5px] px-[12px] $ `}
     >
       <p>{filter.title}</p>
       {isFilter && (

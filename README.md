@@ -32,7 +32,7 @@ To get started with the project, follow the steps below:
 1. Clone the repository:
 git clone https://github.com/vindexTOS/RedBarry-blog.git
 2. Navigate to the project directory:
-cd redberry-bootcamp-challenge
+cd RedBarry-blog
 3. Install the dependencies using Yarn:
 yarn
 

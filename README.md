@@ -40,7 +40,7 @@ yarn
 
 After installing the dependencies, you can start the development server:
 
-\`\`\`bash
+\`\`\`
 yarn run dev
 \`\`\`
 

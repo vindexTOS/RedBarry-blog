@@ -1,30 +1,50 @@
-# React + TypeScript + Vite
+# Redberry blog
+![image](https://firebasestorage.googleapis.com/v0/b/img-upload-7d368.appspot.com/o/redbery%20demo.JPG?alt=media&token=a4e8d229-9207-42d5-99b2-d214bff0c726)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+[Live WebSIte](https://658aba6ee2582c928ae19d82--redberryblog.netlify.app/)
+ # Redberry Bootcamp Challenge: Simple Blog Application
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Welcome to the **Redberry Bootcamp Challenge** repository for a **Simple Blog Application**!
 
-## Expanding the ESLint configuration
+## Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+This project serves as a demonstration of a simple blog application built using **React**, **TypeScript**, **Tailwind CSS** for styling, and **Redux** for state management. Users can sign in, post a blog, filter posts, and view individual posts along with related posts.
 
-- Configure the top-level `parserOptions` property like this:
+## Features
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- **User Authentication**:=Storing random string on localstorage :D .
+- **Blog Posting**: Users can create and post blogs.
+- **Post Filtering**: Users can filter posts based on certain criteria.
+- **Individual Post View**: A dedicated page for each post displaying the content and related posts below.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Technologies Used
+
+- **React**: A JavaScript library for building user interfaces.
+- **TypeScript**: A statically typed superset of JavaScript.
+- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
+- **Redux**: A predictable state container for JavaScript apps.
+
+## Installation
+
+To get started with the project, follow the steps below:
+
+1. Clone the repository:
+git clone https://github.com/vindexTOS/RedBarry-blog.git
+2. Navigate to the project directory:
+cd redberry-bootcamp-challenge
+3. Install the dependencies using Yarn:
+yarn
+
+
+## Usage
+
+After installing the dependencies, you can start the development server:
+
+\`\`\`bash
+yarn run dev
+\`\`\`
+
+This will launch the application in development mode, and you can view it in your web browser at `https://658aba6ee2582c928ae19d82--redberryblog.netlify.app/`.
+ 
+ 

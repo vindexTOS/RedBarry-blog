@@ -23,7 +23,7 @@ const SingleBlog: FC<Data> = ({ data }) => {
   const [openMoreFilters, setOpenMoreFilters] = useState(false);
   const { title, author, publish_date, image, categories, description } = data;
   return (
-    <div className="w-[408px] h-[730px] flex flex-col gap-[10px]      pb-20">
+    <div className="w-[408px] h-[640px] flex flex-col gap-[10px]      pb-20">
       <div className="w-[100%] h-[328px] rounded-[12px]">
         <img
           className="w-[100%] h-[328px] rounded-[12px]"
